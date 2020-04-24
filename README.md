@@ -3,12 +3,16 @@
 This repository includes a C program and a script meant to measure the minimal
 overhead of a thread on Linux.
 
-The C program creates a given number of threads that simply indicate that
-they've started running, and then block in a system call. The main thread then
-runs the `pmap` utility to get an accurate measurement of the program's resident
-set size.
+You'll need to have the Linux `pmap` utility installed. On Fedora, this is
+included in the `procps-ng` package.
 
-The shell script compiles and runs the C program on varying numbers of threads:
+The C program `thread-memory.c` creates a given number of threads that simply
+indicate that they've started running, and then block in a system call. The main
+thread then runs the `pmap` utility to get an accurate measurement of the
+program's resident set size.
+
+The shell script `measure.sh` compiles the C program and runs it creating
+varying numbers of threads:
 
 
 ```
