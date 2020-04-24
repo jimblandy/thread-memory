@@ -53,8 +53,13 @@ int main(int argc, char** argv) {
     sleep(1);
   }
 
+  // Measure kernel memory usage. Noisy, but I got some nice straight lines out of it.
+  // const char template[] = "sudo slabtop -o";
+
+  const char template[] = "pmap -x %d";
+
   char command[200];
-  if (snprintf(command, sizeof(command), "pmap -x %d", pid) >= sizeof(command)) {
+  if (snprintf(command, sizeof(command), template, pid) >= sizeof(command)) {
     fputs("command weirdly long", stderr);
     exit(1);
   }
