@@ -4,10 +4,11 @@ set -eu
 
 cc -g -O2 threads-memory.c -o threads-memory -lpthread
 
+echo -e "num_threads\tvirtual KiB\tresident KiB"
 for ((n=100; n <= 1000; n += 50)); do
     ./threads-memory $n \
-    | awk "/^total/ { print \"$n\\t\" \$3 \"\\t\" \$4 }"
-    # | awk -v pid=$n '
-    #     /Active . Total Size/ { print pid "\t" $8 }
+    | awk -v num_threads=$n '/^total/ { print num_threads "\t" $3 "\t" $4 }'
+    # | awk -v num_threads=$n '
+    #     /Active . Total Size/ { print num_threads "\t" $8 }
     # '
 done
